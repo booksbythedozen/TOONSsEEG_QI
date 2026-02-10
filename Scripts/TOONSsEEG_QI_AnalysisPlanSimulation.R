@@ -155,7 +155,7 @@ drawdag( dag_0.2 )
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 ## Phase I: Simulate anticipated data
-N <- 4  # number of patients for whom to simulate data
+N <- 50  # number of patients for whom to simulate data
 source("./Scripts/Source/sEEG_QI_DataSim.R")
 
 # ------------------------------------------------------------------------------
@@ -1185,7 +1185,7 @@ combined_data <- merge(d_sim, doc_topic_scores, by = "document_id", all.x = TRUE
 # Summarize the topic scores for each participant
 participant_topic_scores <- combined_data %>%
   group_by(ID) %>%
-  summarise(across(starts_with("Topic"), mean, na.rm = TRUE))  # Assuming topics are named V1, V2, etc.
+  summarise(across(starts_with("Topic"), \(x) mean(x, na.rm = TRUE), .names = "mean_{.col}")) 
 
 # View the results
 print(participant_topic_scores)
