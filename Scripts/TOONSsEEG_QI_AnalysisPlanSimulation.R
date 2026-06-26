@@ -1224,6 +1224,17 @@ precis( m0.3 , 2, pars="bK")
 plot( precis(m0.3, 2) )
 plot(precis( m0.3 , 2, pars="bK"))
 
+# ------------------------------------------------------------------------------
+# Difference plots
+# Extract samples from the posterior
+post <- extract.samples(m0.3)
+
+diffs <- list(
+  PPdiff_bK = post$bK[,2] - post$bK[,1]
+)
+labels <- c("Effect of Knowledge")
+plot( precis(diffs) , xlab="Expected Decision-Progress Change (Post-Pre)", labels=labels)
+# ------------------------------------------------------------------------------
 # Make a 2-facet plot of histograms for each value of Knowledge.
 # ------------------------------------------------------------------------------
 par(mfrow=c(1,2)) # plots in 1 row, 2 columns
